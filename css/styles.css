@@ -13,6 +13,20 @@
     --blue-grey-dark: #455A64;
     --blue-grey-light: #CFD8DC;
     --blue-grey-medium: #607D8B;
+    --blue-grey-50: #ECEFF1;
+    --blue-grey-100: #CFD8DC;
+    --blue-grey-200: #B0BEC5;
+    --blue-grey-300: #90A4AE;
+    --blue-grey-400: #78909C;
+    --grey-100: #F5F5F5;
+    --grey-200: #EEEEEE;
+    --grey-300: #E0E0E0;
+    --grey-400: #BDBDBD;
+    --grey-500: #9E9E9E;
+    --grey-600: #757575;
+    --grey-700: #616161;
+    --grey-800: #424242;
+    --grey-900: #212121;
     --text-dark: #212121;
     --text-medium: #757575;
     --text-light: #FFFFFF;
@@ -36,7 +50,7 @@ body {
     font-family: 'Roboto', Arial, sans-serif;
     line-height: 1.6;
     color: var(--text-dark);
-    background-color: #f9f9f9;
+    background-color: var(--blue-grey-50);
     transition: background-color 0.5s ease;
     overflow-x: hidden;
     width: 100%;
@@ -56,7 +70,7 @@ body.dark-theme {
 }
 
 body.dark-theme header {
-    background-color: var(--blue-grey-dark);
+    background-color: var(--grey-800);
     border-bottom-color: var(--deep-purple-dark);
 }
 
@@ -65,15 +79,15 @@ body.dark-theme .logo-container h1 {
 }
 
 body.dark-theme main {
-    background-color: #404040;
+    background-color: var(--grey-700);
 }
 
 body.dark-theme footer {
-    background-color: #252525;
+    background-color: var(--grey-900);
 }
 
 body.dark-theme section {
-    background-color: #383838;
+    background-color: var(--grey-800);
     box-shadow: 0 2px 10px rgba(0,0,0,0.15);
 }
 
@@ -99,7 +113,7 @@ body.dark-theme .faq,
 body.dark-theme .info-contacto, 
 body.dark-theme .redes-sociales,
 body.dark-theme .formulario-contacto {
-    background-color: #484848;
+    background-color: var(--grey-700);
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
 
@@ -185,7 +199,7 @@ p {
     margin-bottom: 1.2rem;
     font-size: 1rem;
     line-height: 1.7;
-    color: var(--text-medium);
+    color: var(--grey-700);
 }
 
 a {
@@ -221,15 +235,16 @@ img {
 
 /* Header */
 header {
-    background-color: var(--text-light);
-    padding: 1.5rem;
-    border-bottom: 1px solid var(--divider-color);
+    background-color: var(--blue-grey-200);
+    padding: 1rem 2rem;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     position: sticky;
     top: 0;
-    z-index: 1000;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    width: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid var(--deep-purple-primary);
 }
 
 .logo-container {
@@ -319,20 +334,19 @@ nav ul li a:hover::after {
 
 /* Secciones principales */
 main {
-    padding: 3rem 1rem;
+    padding: 2rem;
+    background-color: var(--blue-grey-50);
     min-height: 70vh;
-    background-color: var(--text-light);
     box-shadow: 0 0 15px rgba(0,0,0,0.05);
     width: 100%;
 }
 
 section {
-    margin-bottom: 4rem;
-    padding: 2rem;
+    background-color: var(--blue-grey-100);
     border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 section:hover {
@@ -380,49 +394,33 @@ section:hover {
 /* Botones */
 .btn {
     display: inline-block;
+    padding: 0.8rem 1.5rem;
     background-color: var(--deep-purple-primary);
-    color: var(--text-light);
-    padding: 0.9rem 2rem;
-    border-radius: 50px;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    cursor: pointer;
+    color: white;
     border: none;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    min-width: 160px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     text-align: center;
-}
-
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background-color: var(--deep-purple-dark);
-    transition: width 0.3s ease;
-    z-index: -1;
+    line-height: 1.4;
+    font-size: 1rem;
 }
 
 .btn:hover {
-    text-decoration: none;
-    color: var(--text-light);
+    background-color: var(--deep-purple-dark);
     transform: translateY(-3px);
-    box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-decoration: none;
+    color: white;
 }
 
-.btn:hover::before {
-    width: 100%;
+.btn-secondary {
+    background-color: var(--grey-500);
 }
 
-.btn:active {
-    transform: translateY(-1px);
+.btn-secondary:hover {
+    background-color: var(--grey-600);
 }
 
 /* Beneficios section */
@@ -439,7 +437,7 @@ section:hover {
 
 .beneficios-container article {
     padding: 2rem;
-    background-color: #f9f9f9;
+    background-color: var(--blue-grey-100);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -468,7 +466,7 @@ section:hover {
     gap: 2rem;
     align-items: center;
     padding: 2rem;
-    background-color: #f9f9f9;
+    background-color: var(--blue-grey-100);
     border-radius: 8px;
 }
 
@@ -496,7 +494,7 @@ section:hover {
 
 /* Testimonios */
 .testimonios {
-    background: linear-gradient(to right, var(--blue-grey-medium), var(--blue-grey-dark));
+    background: linear-gradient(to right, var(--grey-600), var(--grey-800));
     color: var(--text-light);
     padding: 3rem 2rem;
 }
@@ -521,7 +519,7 @@ section:hover {
 }
 
 .testimonios-container blockquote {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--grey-700);
     padding: 2rem;
     border-radius: 8px;
     position: relative;
@@ -569,7 +567,7 @@ section:hover {
 }
 
 .producto {
-    background-color: #f9f9f9;
+    background-color: var(--blue-grey-100);
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
@@ -589,7 +587,7 @@ section:hover {
     width: 100%;
     height: 280px;
     object-fit: contain;
-    background-color: white;
+    background-color: var(--blue-grey-50);
     padding: 1rem;
 }
 
@@ -634,7 +632,7 @@ section:hover {
 }
 
 .ingrediente {
-    background-color: #f9f9f9;
+    background-color: var(--blue-grey-100);
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -694,10 +692,11 @@ section:hover {
 }
 
 .beneficio-card {
-    background-color: #f9f9f9;
-    padding: 1.5rem;
+    background-color: var(--blue-grey-100);
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     height: 100%;
     display: flex;
@@ -718,7 +717,7 @@ section:hover {
 .estudio {
     margin-bottom: 2rem;
     padding: 1.5rem;
-    background-color: #f9f9f9;
+    background-color: var(--blue-grey-100);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
@@ -731,7 +730,7 @@ section:hover {
 .estudio cite {
     display: block;
     font-style: italic;
-    color: var(--text-medium);
+    color: var(--grey-600);
     margin-top: 1rem;
 }
 
@@ -739,7 +738,7 @@ section:hover {
 .faq {
     margin-bottom: 1.5rem;
     padding: 1.5rem;
-    background-color: #f9f9f9;
+    background-color: var(--blue-grey-100);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
@@ -769,7 +768,7 @@ section:hover {
 
 .info-contacto, .redes-sociales {
     padding: 2rem;
-    background-color: #f9f9f9;
+    background-color: var(--blue-grey-100);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     height: 100%;
@@ -803,7 +802,7 @@ section:hover {
 /* Formulario de contacto */
 .formulario-contacto {
     padding: 2.5rem;
-    background-color: #f9f9f9;
+    background-color: var(--blue-grey-100);
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
@@ -816,18 +815,19 @@ section:hover {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
-    color: var(--blue-grey-dark);
+    color: var(--grey-700);
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
     width: 100%;
-    padding: 0.8rem 1rem;
-    border: 2px solid var(--blue-grey-light);
+    padding: 0.8rem;
+    border: 1px solid var(--blue-grey-200);
     border-radius: 4px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: var(--blue-grey-50);
+    color: var(--text-dark);
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -878,9 +878,11 @@ section:hover {
 
 /* Footer */
 footer {
-    background-color: var(--blue-grey-dark);
-    color: var(--text-light);
-    padding: 3rem 1rem;
+    background-color: var(--blue-grey-300);
+    color: var(--text-dark);
+    padding: 2rem 0 0;
+    margin-top: 3rem;
+    border-top: 3px solid var(--deep-purple-primary);
     width: 100%;
 }
 
@@ -901,7 +903,7 @@ footer {
 }
 
 .footer-links h4, .footer-contacto h4 {
-    color: var(--text-light);
+    color: var(--text-dark);
     padding-bottom: 0.5rem;
     border-bottom: 2px solid var(--deep-purple-light);
     margin-bottom: 1.2rem;
@@ -912,26 +914,26 @@ footer {
 }
 
 .footer-links a {
-    color: var(--blue-grey-light);
+    color: var(--grey-500);
     transition: color 0.3s ease;
 }
 
 .footer-links a:hover {
-    color: var(--text-light);
+    color: var(--text-dark);
     text-decoration: none;
 }
 
 .footer-contacto p {
-    color: var(--blue-grey-light);
+    color: var(--grey-500);
     margin-bottom: 0.8rem;
 }
 
 .copyright {
+    background-color: var(--blue-grey-400);
+    padding: 1rem 0;
     text-align: center;
-    margin-top: 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--blue-grey-medium);
-    color: var(--blue-grey-light);
+    margin-top: 2rem;
+    color: var(--text-light);
 }
 
 /* Tema oscuro */
@@ -1266,4 +1268,15 @@ footer {
 .beneficio-card:hover {
     transform: translateY(-8px) scale(1.03);
     box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+}
+
+/* Filtro de productos */
+.filtro-container {
+    background-color: var(--blue-grey-100);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 } 
