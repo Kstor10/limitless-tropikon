@@ -27,12 +27,26 @@
 }
 
 /* Estilos generales */
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Roboto', Arial, sans-serif;
     line-height: 1.6;
     color: var(--text-dark);
     background-color: #f9f9f9;
     transition: background-color 0.5s ease;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* Grid principal para toda la página */
+.page-grid {
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    min-height: 100vh;
 }
 
 /* Estilos para tema oscuro */
@@ -126,6 +140,7 @@ img {
 
 /* Contenedores */
 .container {
+    width: 90%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
@@ -141,6 +156,7 @@ header {
     top: 0;
     z-index: 1000;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
 }
 
 .logo-container {
@@ -148,6 +164,7 @@ header {
     align-items: center;
     justify-content: center;
     margin-bottom: 0.5rem;
+    flex-wrap: wrap;
 }
 
 .logo {
@@ -172,16 +189,18 @@ nav {
     background: linear-gradient(to right, var(--deep-purple-primary), var(--deep-purple-dark));
     padding: 1rem;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    width: 100%;
 }
 
 nav ul {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 nav ul li {
-    margin: 0 1.5rem;
+    margin: 0 1rem;
     position: relative;
 }
 
@@ -215,12 +234,23 @@ nav ul li a:hover::after {
     width: 100%;
 }
 
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
 /* Secciones principales */
 main {
     padding: 3rem 1rem;
     min-height: 70vh;
     background-color: var(--text-light);
     box-shadow: 0 0 15px rgba(0,0,0,0.05);
+    width: 100%;
 }
 
 section {
@@ -328,20 +358,22 @@ section:hover {
 }
 
 .beneficios-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
 }
 
 .beneficios-container article {
-    flex: 1 1 300px;
     padding: 2rem;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .beneficios-container article:hover {
@@ -358,8 +390,8 @@ section:hover {
 
 /* Producto destacado */
 .producto-card {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     align-items: center;
     padding: 2rem;
@@ -368,7 +400,7 @@ section:hover {
 }
 
 .producto-card figure {
-    flex: 1 1 300px;
+    width: 100%;
 }
 
 .producto-card img {
@@ -386,7 +418,7 @@ section:hover {
 }
 
 .producto-info {
-    flex: 1 1 400px;
+    width: 100%;
 }
 
 /* Testimonios */
@@ -409,19 +441,20 @@ section:hover {
 }
 
 .testimonios-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
 }
 
 .testimonios-container blockquote {
-    flex: 1 1 350px;
     background-color: rgba(255, 255, 255, 0.1);
     padding: 2rem;
     border-radius: 8px;
     position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .testimonios-container blockquote p {
@@ -429,6 +462,7 @@ section:hover {
     font-style: italic;
     margin-bottom: 1rem;
     position: relative;
+    flex-grow: 1;
 }
 
 .testimonios-container blockquote p::before {
@@ -454,8 +488,11 @@ section:hover {
 
 .catalogo-productos {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 1200px;
 }
 
 .producto {
@@ -466,6 +503,8 @@ section:hover {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
+    height: 100%;
+    width: 100%;
 }
 
 .producto:hover {
@@ -475,7 +514,7 @@ section:hover {
 
 .producto img {
     width: 100%;
-    height: 300px;
+    height: 280px;
     object-fit: contain;
     background-color: white;
     padding: 1rem;
@@ -516,7 +555,7 @@ section:hover {
 /* Sección de ingredientes */
 .ingredientes-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
 }
@@ -527,6 +566,9 @@ section:hover {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .ingrediente:hover {
@@ -547,20 +589,20 @@ section:hover {
 }
 
 .info-content {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     align-items: center;
 }
 
 .info-img {
-    flex: 1 1 400px;
+    width: 100%;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 .info-texto {
-    flex: 1 1 500px;
+    width: 100%;
 }
 
 .info-texto ol {
@@ -574,7 +616,7 @@ section:hover {
 
 .beneficios-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 2rem;
 }
 
@@ -584,6 +626,9 @@ section:hover {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .beneficio-card:hover {
@@ -643,18 +688,18 @@ section:hover {
 }
 
 .contacto-info {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
     margin-bottom: 3rem;
 }
 
 .info-contacto, .redes-sociales {
-    flex: 1 1 300px;
     padding: 2rem;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    height: 100%;
 }
 
 .info-contacto ul, .redes-sociales ul {
@@ -763,18 +808,18 @@ footer {
     background-color: var(--blue-grey-dark);
     color: var(--text-light);
     padding: 3rem 1rem;
+    width: 100%;
 }
 
 .footer-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
+    justify-content: space-between;
 }
 
 .footer-logo, .footer-links, .footer-contacto {
     margin-bottom: 1.5rem;
-    flex: 1 1 250px;
 }
 
 .footer-logo img {
@@ -843,7 +888,21 @@ footer {
 }
 
 /* Media queries para responsive */
+@media (max-width: 992px) {
+    html {
+        font-size: 15px;
+    }
+    
+    .catalogo-productos {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
 @media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+    
     h1 {
         font-size: 2rem;
     }
@@ -871,22 +930,35 @@ footer {
         margin: 0.5rem 0;
     }
     
-    .info-content, .producto-card {
-        flex-direction: column;
+    .mobile-menu-btn {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+    
+    .producto img {
+        height: 250px;
     }
     
     .footer-container {
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: 1fr;
         text-align: center;
     }
     
-    .footer-links, .footer-contacto {
-        width: 100%;
+    .theme-toggle {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
     }
 }
 
 @media (max-width: 480px) {
+    html {
+        font-size: 13px;
+    }
+    
     .hero {
         padding: 2rem 1rem;
     }
@@ -897,9 +969,49 @@ footer {
     
     .btn {
         width: 100%;
+        font-size: 0.9rem;
+        padding: 0.8rem 1.5rem;
     }
     
     section {
-        padding: 1.5rem;
+        padding: 1.5rem 1rem;
+        margin-bottom: 2rem;
     }
-} 
+    
+    .catalogo-productos {
+        grid-template-columns: 1fr;
+    }
+    
+    .producto-detalle h3 {
+        font-size: 1.2rem;
+    }
+}
+
+/* Animaciones y efectos adicionales */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+/* Clases de utilidad */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.w-100 { width: 100%; }
+.w-75 { width: 75%; }
+.w-50 { width: 50%; }
+.w-25 { width: 25%; } 
