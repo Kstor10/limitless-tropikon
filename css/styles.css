@@ -72,6 +72,79 @@ body.dark-theme footer {
     background-color: #252525;
 }
 
+body.dark-theme section {
+    background-color: #383838;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+body.dark-theme h1, 
+body.dark-theme h2, 
+body.dark-theme h3, 
+body.dark-theme h4, 
+body.dark-theme h5, 
+body.dark-theme h6 {
+    color: var(--deep-purple-light);
+}
+
+body.dark-theme p {
+    color: #e0e0e0;
+}
+
+body.dark-theme .beneficios-container article,
+body.dark-theme .producto-card,
+body.dark-theme .producto,
+body.dark-theme .ingrediente,
+body.dark-theme .estudio,
+body.dark-theme .faq,
+body.dark-theme .info-contacto, 
+body.dark-theme .redes-sociales,
+body.dark-theme .formulario-contacto {
+    background-color: #484848;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+body.dark-theme .form-group label {
+    color: #e0e0e0;
+}
+
+body.dark-theme .form-group input,
+body.dark-theme .form-group select,
+body.dark-theme .form-group textarea {
+    background-color: #555;
+    border-color: #666;
+    color: #fff;
+}
+
+body.dark-theme .form-group input::placeholder,
+body.dark-theme .form-group textarea::placeholder {
+    color: #aaa;
+}
+
+body.dark-theme .form-group input:focus,
+body.dark-theme .form-group select:focus,
+body.dark-theme .form-group textarea:focus {
+    border-color: var(--deep-purple-light);
+    box-shadow: 0 0 0 2px rgba(209, 196, 233, 0.2);
+}
+
+body.dark-theme a {
+    color: var(--deep-purple-light);
+}
+
+body.dark-theme a:hover {
+    color: var(--text-light);
+}
+
+body.dark-theme .filtro-container {
+    background-color: #444;
+}
+
+body.dark-theme #filtroProductos {
+    background-color: #555;
+    color: #fff;
+    border-color: var(--deep-purple-light);
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
