@@ -442,4 +442,734 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         document.head.appendChild(estilofiltro);
     }
+});
+
+// Script para el carrito de compra
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar carrito
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    actualizarContadorCarrito();
+
+    // Añadir botones de compra a los productos
+    const productos = document.querySelectorAll('.producto');
+    productos.forEach(producto => {
+        const btnComprar = producto.querySelector('.btn');
+        if (btnComprar) {
+            // Cambiar el texto del botón existente
+            btnComprar.textContent = 'Añadir al carrito';
+            
+            btnComprar.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const productoInfo = {
+                    id: Date.now().toString(),
+                    nombre: producto.querySelector('h3').textContent,
+                    precio: Math.floor(Math.random() * 20) + 30, // Precio aleatorio entre 30 y 50€
+                    cantidad: 1,
+                    imagen: producto.querySelector('img').src
+                };
+                
+                // Añadir al carrito
+                carrito.push(productoInfo);
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+                
+                // Mostrar notificación
+                mostrarNotificacion(`¡${productoInfo.nombre} añadido al carrito!`);
+                
+                // Actualizar contador
+                actualizarContadorCarrito();
+                
+                // Animación de añadido al carrito
+                animarProductoAlCarrito(e.target, productoInfo);
+            });
+        }
+    });
+
+    // Crear icono de carrito en la esquina superior derecha
+    const header = document.querySelector('header');
+    if (header) {
+        const carritoIcono = document.createElement('div');
+        carritoIcono.className = 'carrito-icono';
+        carritoIcono.innerHTML = `
+            <i class="icono-carrito">🛒</i>
+            <span class="contador-carrito">0</span>
+        `;
+        header.appendChild(carritoIcono);
+        
+        carritoIcono.addEventListener('click', mostrarCarrito);
+    }
+
+    // Crear modal del carrito
+    const carritoModal = document.createElement('div');
+    carritoModal.className = 'carrito-modal';
+    carritoModal.innerHTML = `
+        <div class="carrito-contenido">
+            <div class="carrito-header">
+                <h3>Tu Carrito</h3>
+                <button class="cerrar-carrito">&times;</button>
+            </div>
+            <div class="carrito-items"></div>
+            <div class="carrito-footer">
+                <div class="carrito-total">Total: <span>0.00€</span></div>
+                <button class="btn finalizar-compra">Finalizar Compra</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(carritoModal);
+    
+    // Añadir eventos al modal
+    const cerrarCarrito = document.querySelector('.cerrar-carrito');
+    if (cerrarCarrito) {
+        cerrarCarrito.addEventListener('click', ocultarCarrito);
+    }
+    
+    // Fondo para cerrar el carrito al hacer clic fuera
+    carritoModal.addEventListener('click', function(e) {
+        if (e.target === carritoModal) {
+            ocultarCarrito();
+        }
+    });
+    
+    // Botón finalizar compra
+    const finalizarCompra = document.querySelector('.finalizar-compra');
+    if (finalizarCompra) {
+        finalizarCompra.addEventListener('click', procesarCompra);
+    }
+    
+    // Función para mostrar el carrito
+    function mostrarCarrito() {
+        renderizarItemsCarrito();
+        carritoModal.classList.add('visible');
+        document.body.classList.add('modal-abierto');
+    }
+    
+    // Función para ocultar el carrito
+    function ocultarCarrito() {
+        carritoModal.classList.remove('visible');
+        document.body.classList.remove('modal-abierto');
+    }
+    
+    // Función para renderizar los items del carrito
+    function renderizarItemsCarrito() {
+        const carritoItems = document.querySelector('.carrito-items');
+        if (carritoItems) {
+            carritoItems.innerHTML = '';
+            
+            if (carrito.length === 0) {
+                carritoItems.innerHTML = '<p class="carrito-vacio">Tu carrito está vacío</p>';
+                document.querySelector('.carrito-total span').textContent = '0.00€';
+                return;
+            }
+            
+            let total = 0;
+            
+            carrito.forEach(item => {
+                const subtotal = item.precio * item.cantidad;
+                total += subtotal;
+                
+                const itemElement = document.createElement('div');
+                itemElement.className = 'carrito-item';
+                itemElement.innerHTML = `
+                    <img src="${item.imagen}" alt="${item.nombre}">
+                    <div class="item-detalles">
+                        <h4>${item.nombre}</h4>
+                        <p class="item-precio">${item.precio.toFixed(2)}€</p>
+                        <div class="item-cantidad">
+                            <button class="cantidad-btn menos" data-id="${item.id}">-</button>
+                            <span>${item.cantidad}</span>
+                            <button class="cantidad-btn mas" data-id="${item.id}">+</button>
+                        </div>
+                    </div>
+                    <button class="eliminar-item" data-id="${item.id}">&times;</button>
+                `;
+                
+                carritoItems.appendChild(itemElement);
+            });
+            
+            // Actualizar total
+            document.querySelector('.carrito-total span').textContent = `${total.toFixed(2)}€`;
+            
+            // Añadir eventos a los botones
+            document.querySelectorAll('.eliminar-item').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    eliminarDelCarrito(id);
+                });
+            });
+            
+            document.querySelectorAll('.cantidad-btn.menos').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    actualizarCantidad(id, 'restar');
+                });
+            });
+            
+            document.querySelectorAll('.cantidad-btn.mas').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    actualizarCantidad(id, 'sumar');
+                });
+            });
+        }
+    }
+    
+    // Función para actualizar cantidad
+    function actualizarCantidad(id, accion) {
+        carrito = carrito.map(item => {
+            if (item.id === id) {
+                if (accion === 'sumar') {
+                    item.cantidad++;
+                } else if (accion === 'restar' && item.cantidad > 1) {
+                    item.cantidad--;
+                }
+            }
+            return item;
+        });
+        
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        renderizarItemsCarrito();
+        actualizarContadorCarrito();
+    }
+    
+    // Función para eliminar un item del carrito
+    function eliminarDelCarrito(id) {
+        carrito = carrito.filter(item => item.id !== id);
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        renderizarItemsCarrito();
+        actualizarContadorCarrito();
+        
+        if (carrito.length === 0) {
+            ocultarCarrito();
+        }
+    }
+    
+    // Función para actualizar el contador del carrito
+    function actualizarContadorCarrito() {
+        const contador = document.querySelector('.contador-carrito');
+        if (contador) {
+            const cantidad = carrito.reduce((total, item) => total + item.cantidad, 0);
+            contador.textContent = cantidad;
+            contador.style.display = cantidad > 0 ? 'flex' : 'none';
+        }
+    }
+    
+    // Función para procesar la compra
+    function procesarCompra() {
+        if (carrito.length === 0) return;
+        
+        // Simular proceso de compra
+        const totalCompra = carrito.reduce((total, item) => total + (item.precio * item.cantidad), 0);
+        
+        // Crear animación de carga
+        const loadingElement = document.createElement('div');
+        loadingElement.className = 'loading-compra';
+        loadingElement.innerHTML = '<div class="spinner"></div><p>Procesando tu pedido...</p>';
+        document.body.appendChild(loadingElement);
+        
+        // Simular tiempo de procesamiento
+        setTimeout(() => {
+            document.body.removeChild(loadingElement);
+            
+            // Crear confirmación
+            const confirmacion = document.createElement('div');
+            confirmacion.className = 'confirmacion-compra';
+            confirmacion.innerHTML = `
+                <div class="confirmacion-contenido">
+                    <div class="check-icon">✓</div>
+                    <h3>¡Compra realizada con éxito!</h3>
+                    <p>Gracias por tu compra de ${totalCompra.toFixed(2)}€</p>
+                    <p>Recibirás un email con los detalles de tu pedido.</p>
+                    <button class="btn cerrar-confirmacion">Cerrar</button>
+                </div>
+            `;
+            document.body.appendChild(confirmacion);
+            
+            // Vaciar carrito
+            carrito = [];
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            actualizarContadorCarrito();
+            ocultarCarrito();
+            
+            // Evento para cerrar confirmación
+            const cerrarConfirmacion = document.querySelector('.cerrar-confirmacion');
+            if (cerrarConfirmacion) {
+                cerrarConfirmacion.addEventListener('click', function() {
+                    document.body.removeChild(confirmacion);
+                });
+            }
+        }, 2000);
+    }
+    
+    // Función para mostrar notificación
+    function mostrarNotificacion(mensaje) {
+        const notificacion = document.createElement('div');
+        notificacion.className = 'notificacion';
+        notificacion.textContent = mensaje;
+        document.body.appendChild(notificacion);
+        
+        // Mostrar notificación con animación
+        setTimeout(() => {
+            notificacion.classList.add('visible');
+        }, 10);
+        
+        // Ocultar notificación después de 3 segundos
+        setTimeout(() => {
+            notificacion.classList.remove('visible');
+            setTimeout(() => {
+                document.body.removeChild(notificacion);
+            }, 300);
+        }, 3000);
+    }
+    
+    // Función para animar el producto añadido al carrito
+    function animarProductoAlCarrito(btnComprar, producto) {
+        // Crear elemento para animar
+        const imgProducto = document.createElement('img');
+        imgProducto.src = producto.imagen;
+        imgProducto.className = 'producto-animado';
+        imgProducto.style.width = '50px';
+        imgProducto.style.height = '50px';
+        
+        // Obtener posiciones
+        const btnRect = btnComprar.getBoundingClientRect();
+        const carritoRect = document.querySelector('.carrito-icono').getBoundingClientRect();
+        
+        // Posicionar el elemento
+        imgProducto.style.position = 'fixed';
+        imgProducto.style.top = `${btnRect.top}px`;
+        imgProducto.style.left = `${btnRect.left}px`;
+        imgProducto.style.zIndex = '9999';
+        imgProducto.style.borderRadius = '50%';
+        imgProducto.style.transition = 'all 0.8s ease-in-out';
+        
+        // Añadir al DOM
+        document.body.appendChild(imgProducto);
+        
+        // Animar
+        setTimeout(() => {
+            imgProducto.style.top = `${carritoRect.top + carritoRect.height/2 - 25}px`;
+            imgProducto.style.left = `${carritoRect.left + carritoRect.width/2 - 25}px`;
+            imgProducto.style.opacity = '0.5';
+            imgProducto.style.transform = 'scale(0.3)';
+        }, 10);
+        
+        // Eliminar después de la animación
+        setTimeout(() => {
+            document.body.removeChild(imgProducto);
+        }, 800);
+        
+        // Animar el icono del carrito
+        const iconoCarrito = document.querySelector('.carrito-icono');
+        iconoCarrito.classList.add('bump');
+        setTimeout(() => {
+            iconoCarrito.classList.remove('bump');
+        }, 300);
+    }
+    
+    // Añadir estilos para el carrito
+    const estilosCarrito = document.createElement('style');
+    estilosCarrito.innerHTML = `
+        .carrito-icono {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .carrito-icono:hover {
+            transform: scale(1.1);
+        }
+        
+        .contador-carrito {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--deep-purple-accent);
+            color: white;
+            font-size: 0.7rem;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .carrito-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .carrito-modal.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .carrito-contenido {
+            background-color: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .carrito-modal.visible .carrito-contenido {
+            transform: translateY(0);
+        }
+        
+        .carrito-header {
+            padding: 1rem 1.5rem;
+            background-color: var(--deep-purple-primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .carrito-header h3 {
+            margin: 0;
+            color: white;
+        }
+        
+        .cerrar-carrito {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .cerrar-carrito:hover {
+            transform: scale(1.2);
+        }
+        
+        .carrito-items {
+            padding: 1.5rem;
+            overflow-y: auto;
+            max-height: 50vh;
+        }
+        
+        .carrito-item {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--divider-color);
+            position: relative;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .carrito-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            margin-right: 1rem;
+        }
+        
+        .item-detalles {
+            flex-grow: 1;
+        }
+        
+        .item-detalles h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1rem;
+        }
+        
+        .item-precio {
+            color: var(--deep-purple-primary);
+            font-weight: bold;
+            margin: 0.3rem 0;
+        }
+        
+        .item-cantidad {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+        
+        .cantidad-btn {
+            background-color: var(--deep-purple-light);
+            color: var(--deep-purple-dark);
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .cantidad-btn:hover {
+            background-color: var(--deep-purple-primary);
+            color: white;
+        }
+        
+        .item-cantidad span {
+            margin: 0 0.5rem;
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .eliminar-item {
+            background: none;
+            border: none;
+            color: #f44336;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .eliminar-item:hover {
+            transform: scale(1.2);
+        }
+        
+        .carrito-vacio {
+            text-align: center;
+            color: var(--text-medium);
+            font-style: italic;
+        }
+        
+        .carrito-footer {
+            padding: 1rem 1.5rem;
+            background-color: #f9f9f9;
+            border-top: 1px solid var(--divider-color);
+        }
+        
+        .carrito-total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-align: right;
+        }
+        
+        .carrito-total span {
+            color: var(--deep-purple-primary);
+        }
+        
+        .notificacion {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: var(--deep-purple-primary);
+            color: white;
+            padding: 1rem;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .notificacion.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .loading-compra {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2100;
+            color: white;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .confirmacion-compra {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2100;
+        }
+        
+        .confirmacion-contenido {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            max-width: 400px;
+            animation: zoomIn 0.5s ease;
+        }
+        
+        .check-icon {
+            color: #4CAF50;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: checkmark 0.8s ease;
+        }
+        
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes checkmark {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .bump {
+            animation: bump 0.3s ease;
+        }
+        
+        @keyframes bump {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        body.modal-abierto {
+            overflow: hidden;
+        }
+        
+        body.dark-theme .carrito-contenido {
+            background-color: #383838;
+        }
+        
+        body.dark-theme .carrito-footer {
+            background-color: #2c2c2c;
+        }
+        
+        body.dark-theme .carrito-item {
+            border-bottom-color: #555;
+        }
+        
+        body.dark-theme .confirmacion-contenido {
+            background-color: #383838;
+            color: white;
+        }
+    `;
+    document.head.appendChild(estilosCarrito);
+    
+    // Añadir animaciones adicionales para los productos
+    const productosAnimation = document.querySelectorAll('.producto');
+    if (productosAnimation.length > 0) {
+        let delay = 0;
+        productosAnimation.forEach(producto => {
+            producto.style.opacity = '0';
+            producto.style.transform = 'translateY(20px)';
+            producto.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            producto.style.transitionDelay = `${delay}s`;
+            
+            setTimeout(() => {
+                producto.style.opacity = '1';
+                producto.style.transform = 'translateY(0)';
+            }, 100);
+            
+            delay += 0.1;
+        });
+    }
+});
+
+// Preloader y efectos de aparición
+document.addEventListener('DOMContentLoaded', function() {
+    // Crear preloader
+    const preloader = document.createElement('div');
+    preloader.className = 'preloader';
+    preloader.innerHTML = '<div class="loader"></div>';
+    document.body.appendChild(preloader);
+    
+    // Ocultar preloader después de que la página cargue
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            preloader.classList.add('fade-out');
+            setTimeout(function() {
+                document.body.removeChild(preloader);
+            }, 500);
+        }, 800);
+    });
+    
+    // Detectar elementos para animación de aparición
+    const elementsToAnimate = document.querySelectorAll('.beneficio-card, .producto, .faq, .ingrediente');
+    
+    if ('IntersectionObserver' in window) {
+        const appearObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('appear-animation', 'visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {threshold: 0.1});
+        
+        elementsToAnimate.forEach(element => {
+            element.classList.add('appear-animation');
+            appearObserver.observe(element);
+        });
+    } else {
+        // Fallback para navegadores que no soportan IntersectionObserver
+        elementsToAnimate.forEach(element => {
+            element.classList.add('appear-animation', 'visible');
+        });
+    }
+    
+    // Aplicar clases de animación a elementos específicos
+    document.querySelectorAll('.producto-card img').forEach(img => {
+        img.parentElement.classList.add('img-hover-zoom');
+    });
+    
+    document.querySelectorAll('.social-links a').forEach(link => {
+        link.classList.add('shake-on-hover');
+    });
+    
+    document.querySelectorAll('.btn').forEach(btn => {
+        btn.classList.add('btn-pop');
+    });
+    
+    // Añadir efecto de resaltado a tarjetas
+    document.querySelectorAll('.producto, .beneficio-card').forEach(card => {
+        card.classList.add('highlight-on-hover');
+    });
 }); 
