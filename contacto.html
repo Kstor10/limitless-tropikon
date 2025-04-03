@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Limitless Tropik-on</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Aquí se agregarán después las fuentes y los iconos -->
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="img/logo.png" alt="Logo Limitless Tropik-on" class="logo">
+            <h1>Limitless Tropik-on</h1>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="informacion.html">Información</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section class="contacto-header">
+            <h2>Contacta con nosotros</h2>
+            <p>Si tienes alguna pregunta sobre nuestros productos o necesitas asesoramiento personalizado, no dudes en contactarnos. Estaremos encantados de ayudarte.</p>
+        </section>
+        
+        <section class="contacto-info">
+            <div class="info-contacto">
+                <h3>Información de contacto</h3>
+                <ul>
+                    <li><i class="icono-email"></i> Email: info@limitless-tropikon.com</li>
+                    <li><i class="icono-telefono"></i> Teléfono: +34 123 456 789</li>
+                    <li><i class="icono-horario"></i> Horario de atención: Lunes a Viernes, 9:00 - 18:00</li>
+                </ul>
+            </div>
+            
+            <div class="redes-sociales">
+                <h3>Síguenos en redes sociales</h3>
+                <ul class="social-links">
+                    <li><a href="#"><i class="icono-facebook"></i> Facebook</a></li>
+                    <li><a href="#"><i class="icono-instagram"></i> Instagram</a></li>
+                    <li><a href="#"><i class="icono-twitter"></i> Twitter</a></li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="formulario-contacto">
+            <h3>Formulario de contacto</h3>
+            <p>Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
+            
+            <form id="contactForm" action="#" method="post">
+                <div class="form-group">
+                    <label for="nombre">Nombre completo *</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" placeholder="tu.email@ejemplo.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono" placeholder="Ej. 612345678">
+                </div>
+                
+                <div class="form-group">
+                    <label for="motivo">Motivo de contacto *</label>
+                    <select id="motivo" name="motivo" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="informacion">Solicitar información</option>
+                        <option value="asesoramiento">Asesoramiento personalizado</option>
+                        <option value="problema">Reportar un problema</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mensaje">Mensaje *</label>
+                    <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                </div>
+                
+                <div class="form-group checkbox">
+                    <input type="checkbox" id="privacidad" name="privacidad" required>
+                    <label for="privacidad">Acepto la política de privacidad *</label>
+                </div>
+                
+                <div class="form-submit">
+                    <button type="submit" class="btn">Enviar mensaje</button>
+                </div>
+                
+                <div id="formMessage" class="form-message">
+                    <!-- Aquí se mostrará el mensaje de confirmación con JavaScript -->
+                </div>
+            </form>
+        </section>
+        
+        <section class="preguntas-contacto">
+            <h3>Preguntas frecuentes sobre contacto</h3>
+            <div class="faq">
+                <h4>¿Cuánto tardarán en responderme?</h4>
+                <p>Intentamos responder a todas las consultas en un plazo máximo de 24-48 horas laborables.</p>
+            </div>
+            <div class="faq">
+                <h4>¿Ofrecen asesoramiento personalizado?</h4>
+                <p>Sí, nuestro equipo de expertos puede ofrecerte un asesoramiento adaptado a tus necesidades específicas.</p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <img src="img/logo.png" alt="Logo Limitless Tropik-on" class="logo-footer">
+                <p>Limitless Tropik-on &copy; 2023</p>
+            </div>
+            <div class="footer-links">
+                <h4>Enlaces rápidos</h4>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="informacion.html">Información</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-contacto">
+                <h4>Contacto</h4>
+                <p>Email: info@limitless-tropikon.com</p>
+                <p>Teléfono: +34 123 456 789</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>Desarrollado para Lenguaje de Marcas - DAM</p>
+        </div>
+    </footer>
+    
+    <script src="js/script.js"></script>
+</body>
+</html> 
