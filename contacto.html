@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacto | Limitless Tropik-on</title>
     <link rel="stylesheet" href="css/styles.css">
-    <!-- Aquí se agregarán después las fuentes y los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="page-grid">
     <header>
@@ -13,7 +13,7 @@
             <img src="img/logo.png" alt="Logo Limitless Tropik-on" class="logo">
             <h1>Limitless Tropik-on</h1>
         </div>
-        <button class="mobile-menu-btn" style="display:none;">☰</button>
+        <button class="mobile-menu-btn">☰</button>
     </header>
     
     <nav>
@@ -27,90 +27,117 @@
     
     <main>
         <section class="contacto-header fade-in">
-            <h2>Contacta con nosotros</h2>
-            <p>Si tienes alguna pregunta sobre nuestros productos o necesitas asesoramiento personalizado, no dudes en contactarnos. Estaremos encantados de ayudarte.</p>
+            <h2>Contacta con Nosotros</h2>
+            <p>Estamos aquí para ayudarte en tu camino hacia la mejora cognitiva. No dudes en contactarnos para cualquier consulta, duda o sugerencia.</p>
         </section>
         
-        <section class="contacto-info">
-            <div class="info-contacto">
-                <h3>Información de contacto</h3>
-                <ul>
-                    <li><i class="icono-email"></i> Email: info@limitless-tropikon.com</li>
-                    <li><i class="icono-telefono"></i> Teléfono: +34 123 456 789</li>
-                    <li><i class="icono-horario"></i> Horario de atención: Lunes a Viernes, 9:00 - 18:00</li>
-                </ul>
+        <section class="contacto-contenido">
+            <div class="contacto-info">
+                <h3><i class="fas fa-map-marker-alt"></i> Dirección</h3>
+                <p>Calle Innovación, 123</p>
+                <p>28001 Madrid, España</p>
+                
+                <h3><i class="fas fa-phone"></i> Teléfono</h3>
+                <p>+34 123 456 789</p>
+                
+                <h3><i class="fas fa-envelope"></i> Email</h3>
+                <p>info@limitless-tropikon.com</p>
+                
+                <h3><i class="fas fa-clock"></i> Horario de Atención</h3>
+                <p>Lunes a Viernes: 9:00 - 18:00</p>
+                <p>Sábado: 10:00 - 14:00</p>
+                <p>Domingo: Cerrado</p>
+                
+                <div class="redes-sociales">
+                    <h3>Síguenos en redes sociales</h3>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
             </div>
             
-            <div class="redes-sociales">
-                <h3>Síguenos en redes sociales</h3>
-                <ul class="social-links">
-                    <li><a href="#"><i class="icono-facebook"></i> Facebook</a></li>
-                    <li><a href="#"><i class="icono-instagram"></i> Instagram</a></li>
-                    <li><a href="#"><i class="icono-twitter"></i> Twitter</a></li>
-                </ul>
+            <div class="contacto-form">
+                <h3>Envíanos un mensaje</h3>
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="nombre"><i class="fas fa-user"></i> Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefono"><i class="fas fa-phone"></i> Teléfono:</label>
+                        <input type="tel" id="telefono" name="telefono">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="asunto"><i class="fas fa-tag"></i> Asunto:</label>
+                        <input type="text" id="asunto" name="asunto" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mensaje"><i class="fas fa-comment"></i> Mensaje:</label>
+                        <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newsletter">
+                            <input type="checkbox" id="newsletter" name="newsletter">
+                            Suscríbeme al boletín de noticias
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> Enviar Mensaje</button>
+                </form>
             </div>
         </section>
         
-        <section class="formulario-contacto">
-            <h3>Formulario de contacto</h3>
-            <p>Completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
+        <section class="mapa-ubicacion">
+            <h3>Nuestra Ubicación</h3>
+            <div class="mapa">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d194347.3808002578!2d-3.819608707984301!3d40.43813108213868!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd422997800a3c81%3A0xc436dec1618c2269!2sMadrid!5e0!3m2!1ses!2ses!4v1650287539876!5m2!1ses!2ses" 
+                    width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+        
+        <section class="faq-contacto">
+            <h3>Preguntas Frecuentes sobre Pedidos y Envíos</h3>
             
-            <form id="contactForm" action="#" method="post">
-                <div class="form-group">
-                    <label for="nombre">Nombre completo *</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <h4 class="accordion-header">¿Cuál es el tiempo de entrega? <i class="fas fa-chevron-down"></i></h4>
+                    <div class="accordion-content">
+                        <p>Normalmente, nuestros pedidos se entregan en un plazo de 2-5 días laborables en la península. Para envíos a islas o internacionales, el plazo puede variar entre 5-10 días laborables.</p>
+                    </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="email">Email *</label>
-                    <input type="email" id="email" name="email" placeholder="tu.email@ejemplo.com" required>
+                <div class="accordion-item">
+                    <h4 class="accordion-header">¿Cuáles son los gastos de envío? <i class="fas fa-chevron-down"></i></h4>
+                    <div class="accordion-content">
+                        <p>Los gastos de envío son de 4,95€ para pedidos inferiores a 50€. Para pedidos superiores a 50€, el envío es gratuito en toda la península.</p>
+                    </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="telefono">Teléfono</label>
-                    <input type="tel" id="telefono" name="telefono" placeholder="Ej. 612345678">
+                <div class="accordion-item">
+                    <h4 class="accordion-header">¿Puedo devolver un producto? <i class="fas fa-chevron-down"></i></h4>
+                    <div class="accordion-content">
+                        <p>Sí, dispones de 14 días desde la recepción del pedido para devolver cualquier producto que no haya sido abierto. Para iniciar el proceso, contacta con nuestro servicio de atención al cliente.</p>
+                    </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="motivo">Motivo de contacto *</label>
-                    <select id="motivo" name="motivo" required>
-                        <option value="">Selecciona una opción</option>
-                        <option value="informacion">Solicitar información</option>
-                        <option value="asesoramiento">Asesoramiento personalizado</option>
-                        <option value="problema">Reportar un problema</option>
-                        <option value="otro">Otro</option>
-                    </select>
+                <div class="accordion-item">
+                    <h4 class="accordion-header">¿Ofrecen asesoramiento personalizado? <i class="fas fa-chevron-down"></i></h4>
+                    <div class="accordion-content">
+                        <p>Por supuesto. Puedes solicitar una consulta gratuita con nuestros especialistas en nootrópicos a través del formulario de contacto o llamando a nuestro teléfono de atención al cliente.</p>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="mensaje">Mensaje *</label>
-                    <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
-                </div>
-                
-                <div class="form-group checkbox">
-                    <input type="checkbox" id="privacidad" name="privacidad" required>
-                    <label for="privacidad">Acepto la política de privacidad *</label>
-                </div>
-                
-                <div class="form-submit">
-                    <button type="submit" class="btn">Enviar mensaje</button>
-                </div>
-                
-                <div id="formMessage" class="form-message">
-                    <!-- Aquí se mostrará el mensaje de confirmación con JavaScript -->
-                </div>
-            </form>
-        </section>
-        
-        <section class="preguntas-contacto">
-            <h3>Preguntas frecuentes sobre contacto</h3>
-            <div class="faq">
-                <h4>¿Cuánto tardarán en responderme?</h4>
-                <p>Intentamos responder a todas las consultas en un plazo máximo de 24-48 horas laborables.</p>
-            </div>
-            <div class="faq">
-                <h4>¿Ofrecen asesoramiento personalizado?</h4>
-                <p>Sí, nuestro equipo de expertos puede ofrecerte un asesoramiento adaptado a tus necesidades específicas.</p>
             </div>
         </section>
     </main>
@@ -119,7 +146,7 @@
         <div class="footer-container">
             <div class="footer-logo">
                 <img src="img/logo.png" alt="Logo Limitless Tropik-on" class="logo-footer">
-                <p>Limitless Tropik-on &copy; 2023</p>
+                <p>Limitless Tropik-on &copy; <span id="currentYear">2024</span></p>
             </div>
             <div class="footer-links">
                 <h4>Enlaces rápidos</h4>
@@ -132,8 +159,8 @@
             </div>
             <div class="footer-contacto">
                 <h4>Contacto</h4>
-                <p>Email: info@limitless-tropikon.com</p>
-                <p>Teléfono: +34 123 456 789</p>
+                <p><i class="fas fa-envelope"></i> info@limitless-tropikon.com</p>
+                <p><i class="fas fa-phone"></i> +34 123 456 789</p>
             </div>
         </div>
         <div class="copyright">
@@ -143,4 +170,4 @@
     
     <script src="js/script.js"></script>
 </body>
-</html> 
+</html>
