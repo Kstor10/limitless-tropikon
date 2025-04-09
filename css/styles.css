@@ -325,11 +325,19 @@ nav ul li a:hover::after {
 /* Mobile Menu Button */
 .mobile-menu-btn {
     display: none;
-    background: none;
+    background-color: var(--deep-purple-primary);
+    color: white;
     border: none;
-    color: var(--text-light);
+    border-radius: 4px;
     font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.mobile-menu-btn:hover {
+    background-color: var(--deep-purple-dark);
 }
 
 /* Secciones principales */
@@ -914,8 +922,9 @@ footer {
 }
 
 .footer-links a {
-    color: var(--grey-500);
+    color: var(--text-dark);
     transition: color 0.3s ease;
+    font-weight: 500;
 }
 
 .footer-links a:hover {
@@ -924,7 +933,7 @@ footer {
 }
 
 .footer-contacto p {
-    color: var(--grey-500);
+    color: var(--text-dark);
     margin-bottom: 0.8rem;
 }
 
@@ -996,20 +1005,45 @@ footer {
         margin-bottom: 1rem;
     }
     
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    nav ul li {
-        margin: 0.5rem 0;
-    }
-    
+    /* Mostrar el botón de menú móvil */
     .mobile-menu-btn {
         display: block;
         position: absolute;
         top: 1rem;
         right: 1rem;
+    }
+    
+    /* Estilos para el menú móvil */
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        background-color: var(--blue-grey-200);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease;
+        z-index: 100;
+    }
+    
+    nav ul.show-mobile-menu {
+        max-height: 300px;
+        padding: 1rem 0;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+    
+    nav ul li {
+        margin: 0.5rem 0;
+        width: 100%;
+        text-align: center;
+    }
+    
+    nav ul li a {
+        display: block;
+        padding: 0.5rem 0;
     }
     
     .producto img {
@@ -1279,4 +1313,14 @@ footer {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-} 
+}
+
+/* Ejemplo de código JavaScript que podría utilizarse:
+function toggleMenu() {
+    if (menu.style.display === 'none') {
+        menu.style.display = 'block';
+    } else {
+        menu.style.display = 'none';
+    }
+}
+*/
