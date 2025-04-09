@@ -59,6 +59,27 @@ El sitio web cuenta con 4 páginas principales:
     - Imágenes de productos
     - Ilustraciones para la sección de información
 
+## Estructura de Carpetas
+```
+limitless-tropikon/
+├── css/                           # Estilos del sitio
+│   └── styles.css                 # Archivo principal de estilos (1292 líneas)
+├── img/                           # Imágenes y recursos gráficos
+│   ├── logo.png                   # Logo del sitio
+│   ├── limitlessproducto.png      # Imagen principal del producto
+│   ├── formulaoriginal.png        # Imagen de la fórmula original
+│   ├── formulamemoria.png         # Imagen de la fórmula para memoria
+│   ├── formulaconcentracion.png   # Imagen de la fórmula para concentración
+│   └── plantanoor.png             # Imagen de planta nootrópica
+├── js/                            # JavaScript
+│   └── script.js                  # Lógica del sitio (1175 líneas)
+├── index.html                     # Página principal
+├── productos.html                 # Catálogo de productos
+├── informacion.html               # Información sobre nootrópicos
+├── contacto.html                  # Formulario de contacto
+└── README.md                      # Documentación del proyecto
+```
+
 ## Tecnologías utilizadas
 
 - **HTML5**: Estructura y contenido semántico

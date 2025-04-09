@@ -1,5 +1,82 @@
 // Script para manejar el formulario de contacto
 document.addEventListener('DOMContentLoaded', function() {
+    // Actualizar el año del copyright automáticamente
+    const currentYearElements = document.querySelectorAll('#currentYear');
+    const currentYear = new Date().getFullYear();
+    currentYearElements.forEach(el => {
+        el.textContent = currentYear;
+    });
+    
+    // Funcionalidad del menú móvil
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navMenu = document.querySelector('nav ul');
+    
+    // Aplicar estilos inline para el menú móvil
+    function setupMobileMenu() {
+        // Estilos para el botón del menú
+        if (mobileMenuBtn) {
+            mobileMenuBtn.style.display = "block";
+            mobileMenuBtn.style.backgroundColor = "#673AB7";
+            mobileMenuBtn.style.color = "white";
+            mobileMenuBtn.style.border = "none";
+            mobileMenuBtn.style.borderRadius = "4px";
+            mobileMenuBtn.style.fontSize = "1.5rem";
+            mobileMenuBtn.style.cursor = "pointer";
+            
+            // En móviles
+            if (window.innerWidth <= 768) {
+                mobileMenuBtn.style.display = "block";
+                mobileMenuBtn.style.position = "absolute";
+                mobileMenuBtn.style.top = "1rem";
+                mobileMenuBtn.style.right = "1rem";
+            }
+        }
+        
+        // Evento para mostrar/ocultar el menú
+        if (mobileMenuBtn && navMenu) {
+            mobileMenuBtn.addEventListener('click', function() {
+                if (navMenu.style.maxHeight === "300px") {
+                    navMenu.style.maxHeight = "0";
+                    navMenu.style.padding = "0";
+                    navMenu.style.overflow = "hidden";
+                    this.textContent = "☰";
+                } else {
+                    navMenu.style.flexDirection = "column";
+                    navMenu.style.alignItems = "center";
+                    navMenu.style.backgroundColor = "#B0BEC5";
+                    navMenu.style.position = "absolute";
+                    navMenu.style.top = "100%";
+                    navMenu.style.left = "0";
+                    navMenu.style.width = "100%";
+                    navMenu.style.maxHeight = "300px";
+                    navMenu.style.padding = "1rem 0";
+                    navMenu.style.boxShadow = "0 5px 10px rgba(0,0,0,0.1)";
+                    navMenu.style.zIndex = "100";
+                    navMenu.style.transition = "max-height 0.5s ease";
+                    this.textContent = "✕";
+                }
+            });
+        }
+    }
+    
+    // Inicializar el menú móvil
+    setupMobileMenu();
+    
+    // Evento para ajustar estilos al redimensionar la ventana
+    window.addEventListener('resize', function() {
+        if (mobileMenuBtn) {
+            if (window.innerWidth <= 768) {
+                mobileMenuBtn.style.display = "block";
+            } else {
+                mobileMenuBtn.style.display = "none";
+                // Restablecer el menú en pantallas grandes
+                if (navMenu) {
+                    navMenu.style = "";
+                }
+            }
+        }
+    });
+
     // Comprobar si el formulario existe en la página
     const contactForm = document.getElementById('contactForm');
     
